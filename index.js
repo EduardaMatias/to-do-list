@@ -1,8 +1,15 @@
-const express = require("express"); // busca o express dentro do node modules
-const app = express(); // a constante recebe a função express sendo executada
+const express = require("express");
+const path = require("path");
+const routes = require("./routes/routes")
 
-app.get("/home", (req, res) => {
-  res.send("Hello World");
-}); // função get com dois parametros (rota, função de callback com requisição e resposta)
+const app = express();
+const PORT = 3000;
 
-app.listen(3000);
+app.set("view engine", "ejs");
+
+app.use(express.static(path.join(__dirname, "public")));
+app.use(routes)
+
+app.listen(PORT, () =>
+  console.log(`Servidor rodando em http://localhost:${PORT}`)
+);
